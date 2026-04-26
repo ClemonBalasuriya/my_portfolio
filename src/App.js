@@ -5,12 +5,14 @@ import Contact from './components/Contact'
 import Layout from './components/Layout'
 import Portfolio from './components/Portfolio'
 import Dashboard from './components/Dashboard'
+import CV from './components/CV'
 import './App.scss'
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path="/cv" element={<CV />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />

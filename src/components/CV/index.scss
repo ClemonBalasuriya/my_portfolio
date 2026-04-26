@@ -1,0 +1,160 @@
+.cv-page {
+  min-height: 100vh;
+  padding: 28px;
+  background: linear-gradient(180deg, #eef5ff 0%, #f8fbff 100%);
+  overflow: auto;
+}
+
+.cv-paper {
+  width: min(860px, 100%);
+  margin: 0 auto;
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 0 20px 46px rgba(15, 23, 42, 0.09);
+  padding: 30px;
+}
+
+.cv-header {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 24px;
+  align-items: center;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+  padding-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    font-size: 38px;
+    font-family: 'Coolvetica';
+    font-weight: 400;
+    letter-spacing: 0.4px;
+  }
+
+  .cv-role {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-top: 6px;
+  }
+
+  p {
+    margin: 4px 0;
+    font-size: 13px;
+  }
+}
+
+.cv-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+.cv-section {
+  margin-top: 20px;
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    font-family: 'Coolvetica';
+    font-weight: 400;
+    color: #0f172a;
+  }
+
+  p,
+  li {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #1e293b;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+}
+
+.cv-item {
+  margin-bottom: 10px;
+
+  h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 4px 0 0;
+  }
+}
+
+.cv-actions {
+  width: min(860px, 100%);
+  margin: 18px auto 0;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    border: none;
+    border-radius: 10px;
+    background: #1d4ed8;
+    color: #ffffff;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cv-page {
+    padding: 12px;
+  }
+
+  .cv-paper {
+    padding: 16px;
+  }
+
+  .cv-header {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+
+    h1 {
+      font-size: 32px;
+    }
+  }
+
+  .cv-actions {
+    justify-content: center;
+  }
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .cv-page {
+    padding: 0;
+    background: #ffffff;
+    overflow: visible;
+  }
+
+  .cv-paper {
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+}

@@ -1,7 +1,5 @@
 import './index.scss'
 import { useState } from 'react'
-import LogoS from '../../assets/images/logo-s.png'
-import LogoSubtitle from '../../assets/images/logo_sub.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faLinkedin,
@@ -26,8 +24,7 @@ const Sidebar = () => {
         className="logo"
         to="/"
         onClick={() => setShowNav(false)}>
-        <img src={LogoS} alt="Logo" />
-        <img className="sub-logo" src={LogoSubtitle} alt="Clemon" />
+        <span className="logo-badge">CB</span>
       </Link>
       <nav className={showNav ? 'mobile-show' : ''}>
         <NavLink 
@@ -36,6 +33,7 @@ const Sidebar = () => {
           to="/"
           onClick={() => setShowNav(false)}>
           <FontAwesomeIcon icon={faHome} color="#4d4d4e" />
+          <span className="nav-label">Home</span>
         </NavLink>
         <NavLink 
           activeclassname="active"
@@ -43,6 +41,7 @@ const Sidebar = () => {
           to="/about"
           onClick={() => setShowNav(false)}>
           <FontAwesomeIcon icon={faUser} color="#4d4d4e" />
+          <span className="nav-label">About</span>
         </NavLink>
         <NavLink
           activeclassname="active"
@@ -51,6 +50,7 @@ const Sidebar = () => {
           onClick={() => setShowNav(false)}
         >
           <FontAwesomeIcon icon={faSuitcase} color="#4d4d4e" />
+          <span className="nav-label">Portfolio</span>
         </NavLink>
         <NavLink
           activeclassname="active"
@@ -59,6 +59,7 @@ const Sidebar = () => {
           onClick={() => setShowNav(false)}
         >
           <FontAwesomeIcon icon={faEnvelope} color="#4d4d4e" />
+          <span className="nav-label">Contact</span>
         </NavLink>
         <FontAwesomeIcon 
           onClick={() => setShowNav(false)}

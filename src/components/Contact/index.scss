@@ -36,45 +36,52 @@
   input[type='email'] {
     width: 100%;
     border: 0;
-    background: #115173;
+    background: rgba(255, 255, 255, 0.9);
     height: 50px;
     font-size: 16px;
-    color: #fff;
+    color: #0f172a;
     padding: 0 20px;
     box-sizing: border-box;
+    border: 1px solid rgba(37, 99, 235, 0.15);
   }
 
   textarea {
     width: 100%;
     border: 0;
-    background: #115173;
+    background: rgba(255, 255, 255, 0.9);
     height: 50px;
     font-size: 16px;
-    color: #fff;
+    color: #0f172a;
     padding: 20px;
     box-sizing: border-box;
     min-height: 150px;
+    border: 1px solid rgba(37, 99, 235, 0.15);
   }
 
   .flat-button {
-    color: #ffd700;
+    color: #0f172a;
     font-size: 11px;
     letter-spacing: 3px;
     text-decoration: none;
     padding: 8px 10px;
-    border: 1px solid #ffd700;
+    border: 1px solid #2563eb;
     float: left;
     border-radius: 4px;
-    background: 0 0;
+    background: rgba(37, 99, 235, 0.08);
     text-transform: uppercase;
     float: right;
     text-align: center;
     margin-right: 10px;
+
+    &:hover {
+      background: #2563eb;
+      color: #fff;
+    }
   }
 }
 
 .map-wrap {
-  background: rgba(8, 253, 216, 0.1);
+  background: rgba(37, 99, 235, 0.08);
   float: right;
   width: 53%;
   height: 115%;
@@ -92,13 +99,13 @@
 
 .info-map {
   position: absolute;
-  background: #000;
+  background: rgba(15, 23, 42, 0.96);
   top: 50px;
   right: 30%;
   z-index: 999999;
   width: 267px;
   padding: 20px;
-  color: #fff;
+  color: #f8fafc;
   font-family: 'Helvetica';
   font-size: 17px;
   font-weight: 300;
@@ -110,7 +117,7 @@
     font-size: 16px;
 
     span {
-      color: #ffd700;
+      color: #93c5fd;
     }
   }
 }
@@ -125,5 +132,23 @@
   
   .info-map {
     display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contact-form {
+    ul {
+      li.half {
+        width: 100%;
+        margin-left: 0;
+        float: none;
+      }
+    }
+  }
+
+  .contact-form .flat-button {
+    float: none;
+    width: 100%;
+    margin-right: 0;
   }
 }

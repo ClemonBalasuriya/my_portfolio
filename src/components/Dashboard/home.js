@@ -70,10 +70,12 @@ const Home = () => {
     return (
         <div className="dashboard">
 
+            <h2>Add software, data science, or AI project</h2>
+
             <form ref={form} onSubmit={submitPortfolio}>
-                <p><input type="text" placeholder="Name" /></p>
-                <p><textarea placeholder="Description" /></p>
-                <p><input type="text" placeholder="Url" /></p>
+                <p><input type="text" placeholder="Project name" /></p>
+                <p><textarea placeholder="Tech stack and project summary" /></p>
+                <p><input type="text" placeholder="Project URL (GitHub or live demo)" /></p>
                 <p><input type="file" placeholder="Image" /></p>
                 <button type="submit">Submit</button>
                 <button type="button" onClick={() => auth?.signOut()}>Sign out</button>
