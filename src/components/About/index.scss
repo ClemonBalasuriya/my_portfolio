@@ -473,16 +473,17 @@
 @media screen and (max-width: 1200px) {
   .about-page {
     .stage-cube-cont {
-      position: relative;
-      top: auto;
-      right: auto;
-      width: 100%;
-      height: 260px;
-      margin-bottom: 6px;
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      height: 0 !important;
+      width: 0 !important;
+      margin-bottom: 0 !important;
     }
 
     .cubespinner {
-      margin-left: calc(50% - 110px);
+      animation: none !important;
+      display: none !important;
     }
 
     .bento-grid {
@@ -513,8 +514,18 @@
   .about-page {
     padding: 14px;
 
+    /* Disable cube animation on small screens for performance and readability */
     .stage-cube-cont {
-      height: 220px;
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      height: 0 !important;
+      width: 0 !important;
+    }
+
+    .cubespinner {
+      animation: none !important;
+      display: none !important;
     }
 
     h1 {

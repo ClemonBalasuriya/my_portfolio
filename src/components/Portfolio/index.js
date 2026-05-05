@@ -4,46 +4,56 @@ import AnimatedLetters from "../AnimatedLetters";
 import "./index.scss";
 import { getDocs, collection } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from '../../firebase';
-import WeatherDashboardImage from '../../assets/images/projects/weather-dashboard.svg';
-import SmartReshoreImage from '../../assets/images/projects/smart-reshore-ai.svg';
-import TicketBookingImage from '../../assets/images/projects/ticket-booking.svg';
-import BreastCancerImage from '../../assets/images/projects/breast-cancer-ml.svg';
-import GoalProgrammingImage from '../../assets/images/projects/goal-programming.svg';
+import WeatherDashboardImage from '../../assets/images/projects/weather-dashboard.jpg';
+import SmartReshoreImage from '../../assets/images/projects/smart-reshore-ai.png';
+import TicketBookingImage from '../../assets/images/projects/ticket-booking.jpg';
+import BreastCancerImage from '../../assets/images/projects/breast-cancer-ml.png';
+import GoalProgrammingImage from '../../assets/images/projects/goal-programming.jpg';
 
 const fallbackProjects = [
     {
         name: 'WeatherDashboard - Travel + Weather Intelligence App',
         description: 'SwiftUI, SwiftData, MapKit, OpenWeather API',
         summary: 'A travel and weather intelligence app for smarter trip planning.',
-        url: 'https://github.com/ClemonBalasuriya/WeatherDashboard-iOS-app.git',
+        liveUrl: '',
+        repoUrl: 'https://github.com/ClemonBalasuriya/WeatherDashboard-iOS-app.git',
+        techStack: ['SwiftUI','SwiftData','MapKit','OpenWeather API'],
         image: WeatherDashboardImage,
     },
     {
         name: 'SmartReshore AI (ChainPulse)',
         description: 'Next.js, React, Node.js, Express, TypeScript, FastAPI, PostgreSQL',
         summary: 'A SaaS platform delivering AI-powered supply chain risk intelligence.',
-        url: 'https://github.com/sakithajayasinghe/SDGP-2025.git',
+        liveUrl: '',
+        repoUrl: 'https://github.com/sakithajayasinghe/SDGP-2025.git',
+        techStack: ['Next.js','React','Node.js','TypeScript','PostgreSQL'],
         image: SmartReshoreImage,
     },
     {
         name: 'Real-Time Ticket Booking System',
         description: 'Java, Spring Boot, Angular, MySQL',
         summary: 'A producer-consumer based concurrent ticket management system.',
-        url: 'https://github.com/ClemonBalasuriya/Ticket-Booking-System.git',
+        liveUrl: '',
+        repoUrl: 'https://github.com/ClemonBalasuriya/Ticket-Booking-System.git',
+        techStack: ['Java','Spring Boot','Angular','MySQL'],
         image: TicketBookingImage,
     },
     {
         name: 'Breast Cancer Prediction System',
         description: 'Python, Scikit-learn',
         summary: 'ML model for mortality and survival time prediction.',
-        url: '',
+        liveUrl: '',
+        repoUrl: '',
+        techStack: ['Python','scikit-learn','pandas'],
         image: BreastCancerImage,
     },
     {
         name: 'Goal Programming Optimization Model',
         description: 'MATLAB',
         summary: 'Optimization model for production planning using goal programming.',
-        url: '',
+        liveUrl: '',
+        repoUrl: '',
+        techStack: ['MATLAB','Operations Research'],
         image: GoalProgrammingImage,
     },
 ];
@@ -82,33 +92,38 @@ const Portfolio = () => {
         }
     }
 
+    const formatTechUsed = (port) => {
+        const techList = port.techUsed || port.techStack || [];
+        return Array.isArray(techList) ? techList.join(', ') : String(techList);
+    }
+
     const renderPortfolio = (portfolio) => {
+        if (!portfolio || !portfolio.length) return null;
+
         return (
-            <div className="images-container">
-                {
-                    portfolio.map((port, idx) => {
-                        return (
-                            <div className="image-box" key={idx}>
-                                <img 
-                                src={port.image}
-                                className="portfolio-image"
-                                alt="portfolio" />
-                                <div className="content">
-                                    <p className="title">{port.name}</p>
-                                    <h4 className="description">{port.description}</h4>
-                                    {port.summary && <p className="summary">{port.summary}</p>}
-                                    <button
-                                        className="btn"
-                                        onClick={() => port.url && window.open(port.url, '_blank')}
-                                        disabled={!port.url}
-                                    >{port.url ? 'View' : 'Coming Soon'}</button>
+            <div className="projects-grid">
+                {portfolio.map((port, idx) => (
+                    <article className="project-card" key={idx}>
+                        <div className="image-wrapper">
+                            <img src={port.image} alt={port.name} />
+                            <div className="overlay">
+                                <div className="links">
+                                    {port.liveUrl ? <a href={port.liveUrl} target="_blank" rel="noreferrer" className="link">Live</a> : null}
+                                    {port.repoUrl ? <a href={port.repoUrl} target="_blank" rel="noreferrer" className="link">Code</a> : null}
                                 </div>
                             </div>
-                        )
-                    })
-                }
+                        </div>
+                        <div className="card-body">
+                            <div>
+                                <h4 className="project-title">{port.name}</h4>
+                                <p className="project-summary">{port.summary || port.description}</p>
+                                <p className="project-tech">Tech used: {formatTechUsed(port)}</p>
+                            </div>
+                        </div>
+                    </article>
+                ))}
             </div>
-        );
+        )
     }
 
 
@@ -123,8 +138,8 @@ const Portfolio = () => {
                     />
                 </h1>
                 {!isFirebaseConfigured && (
-                    <p style={{ color: '#fff' }}>
-                        Showing local sample projects. Add REACT_APP_FIREBASE_* values in .env to load projects from Firebase.
+                    <p className="portfolio-intro">
+                        Here are some of the projects I have built and worked on.
                     </p>
                 )}
                 <div>{renderPortfolio(portfolio)}</div>
