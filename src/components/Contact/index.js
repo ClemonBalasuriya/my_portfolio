@@ -28,6 +28,33 @@ const Contact = () => {
     return () => clearTimeout(timer)
   }, [])
 
+  // iOS fix: prevent auto-scroll on input focus
+  useEffect(() => {
+    const form = formRef.current
+    if (!form) return
+
+    const handleInputFocus = (e) => {
+      // Save current scroll position
+      const scrollPos = window.pageYOffset || document.documentElement.scrollTop
+      
+      // Restore scroll position after a brief delay to allow iOS to settle
+      setTimeout(() => {
+        window.scrollTo(0, scrollPos)
+      }, 0)
+    }
+
+    const inputs = form.querySelectorAll('input, textarea')
+    inputs.forEach(input => {
+      input.addEventListener('focus', handleInputFocus)
+    })
+
+    return () => {
+      inputs.forEach(input => {
+        input.removeEventListener('focus', handleInputFocus)
+      })
+    }
+  }, [])
+
   const whatsappLink = useMemo(
     () => `https://wa.me/${contactLinks.whatsapp.replace(/\D/g, '').replace(/^0/, '94')}`,
     []

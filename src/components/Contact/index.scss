@@ -181,11 +181,16 @@
 
   .contact-form-panel {
     padding: 30px;
+    /* iOS fix: ensure form doesn't have overflow that causes scroll issues */
+    overflow: visible;
   }
 
   .contact-form {
     display: grid;
     gap: 14px;
+    /* iOS fix: allow normal scrolling */
+    overflow: visible;
+    touch-action: auto;
 
     label {
       display: grid;
@@ -217,6 +222,11 @@
       padding: 14px 16px;
       transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
       outline: none;
+      /* iOS fixes: prevent auto-zoom and scroll issues */
+      font-size: 16px;
+      touch-action: manipulation;
+      -webkit-appearance: none;
+      -webkit-user-select: text;
     }
 
     textarea {
@@ -322,81 +332,6 @@
     .send-button {
       width: 100%;
       justify-self: stretch;
-    }
-
-    /* Reduce gap on tablets and reduce min-height of left section */
-    .contact-shell {
-      gap: 16px;
-    }
-
-    .contact-left {
-      min-height: auto;
-    }
-  }
-}
-
-/* iOS and small device specific fixes */
-@media screen and (max-width: 520px) {
-  .contact-page {
-    padding: 12px 8px;
-
-    .contact-shell {
-      gap: 12px;
-    }
-
-    .contact-left,
-    .contact-form-panel {
-      padding: 16px;
-      border-radius: 16px;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .contact-form {
-      gap: 10px;
-
-      label {
-        gap: 6px;
-        font-size: 12px;
-      }
-
-      .form-row {
-        gap: 10px;
-      }
-
-      input,
-      textarea {
-        /* iOS-specific: prevent auto-zoom on focus */
-        font-size: 16px !important;
-        /* Ensure custom styling is applied on iOS */
-        -webkit-appearance: none;
-        appearance: none;
-        /* Prevent iOS from adding default styling */
-        border-radius: 12px;
-        padding: 12px 14px;
-        /* Ensure inputs are properly tappable */
-        min-height: 44px;
-        min-width: 44px;
-      }
-
-      textarea {
-        min-height: 120px;
-      }
-
-      input:focus,
-      textarea:focus {
-        /* Ensure focus state is visible on iOS */
-        outline: 2px solid #c85f35;
-        outline-offset: 0;
-      }
-    }
-
-    .send-button {
-      min-height: 44px;
-      font-size: 16px;
     }
   }
 }
