@@ -122,7 +122,8 @@
       border-radius: 14px;
       display: block;
       margin-bottom: 12px;
-      max-height: 220px;
+      /* increased DP frame height */
+      max-height: 400px;
       object-fit: cover;
     }
 
