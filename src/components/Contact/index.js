@@ -28,33 +28,57 @@ const Contact = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  // iOS fix: prevent auto-scroll on input focus by preserving scroll position
+  // iOS fix: aggressive scroll lock for inputs to prevent auto-scroll on keyboard appear
   useEffect(() => {
     const form = formRef.current
     if (!form) return
 
+    let savedScrollPos = 0
+
     const handleInputFocus = (e) => {
-      // Capture scroll position before iOS tries to auto-scroll
-      const scrollY = window.scrollY || window.pageYOffset
-      
-      // Prevent default scrollIntoView behavior on iOS
-      e.target.blur()
-      
-      // Restore scroll position and refocus without scrolling
-      requestAnimationFrame(() => {
-        window.scrollTo(0, scrollY)
-        e.target.focus({ preventScroll: true })
-      })
+      // Save current scroll position
+      savedScrollPos = window.scrollY || window.pageYOffset
+
+      // Lock scroll position by preventing all scroll events
+      const preventScroll = (e) => {
+        window.scrollTo(0, savedScrollPos)
+      }
+
+      window.addEventListener('scroll', preventScroll)
+      document.addEventListener('touchmove', preventScroll, { passive: false })
+
+      // Store the listener so we can remove it on blur
+      e.target._scrollPreventListener = preventScroll
+      e.target._scrollPrevented = true
+    }
+
+    const handleInputBlur = (e) => {
+      // Remove scroll lock listeners
+      if (e.target._scrollPrevented) {
+        const preventScroll = e.target._scrollPreventListener
+        if (preventScroll) {
+          window.removeEventListener('scroll', preventScroll)
+          document.removeEventListener('touchmove', preventScroll)
+        }
+        e.target._scrollPrevented = false
+      }
     }
 
     const inputs = form.querySelectorAll('input, textarea')
     inputs.forEach(input => {
       input.addEventListener('focus', handleInputFocus, { passive: true })
+      input.addEventListener('blur', handleInputBlur, { passive: true })
     })
 
     return () => {
       inputs.forEach(input => {
         input.removeEventListener('focus', handleInputFocus)
+        input.removeEventListener('blur', handleInputBlur)
+        // Clean up any remaining listeners
+        if (input._scrollPrevented && input._scrollPreventListener) {
+          window.removeEventListener('scroll', input._scrollPreventListener)
+          document.removeEventListener('touchmove', input._scrollPreventListener)
+        }
       })
     }
   }, [])

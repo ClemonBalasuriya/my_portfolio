@@ -1,6 +1,9 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
+  /* iOS fixes */
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 body {
@@ -16,6 +19,9 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   display: block;
+  /* iOS fixes: prevent elastic scrolling */
+  overscroll-behavior: none;
+  -webkit-overscroll-behavior: none;
 }
 
 #root {
