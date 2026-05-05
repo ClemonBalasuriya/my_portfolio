@@ -15,7 +15,7 @@ const contactLinks = {
   facebook: 'https://www.facebook.com/share/15ovJiibygD/',
   github: 'https://github.com/ClemonBalasuriya',
   instagram: 'https://www.instagram.com/clemon_balasuriya?igsh=MXRucTU5NGV2cG9tMQ==',
-  linkedin: 'https://www.linkedin.com/in/your-linkedin',
+  linkedin: 'https://www.linkedin.com/in/clemon-balasuriya-05518b256',
 }
 
 const Contact = () => {

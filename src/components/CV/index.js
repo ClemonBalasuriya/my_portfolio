@@ -12,7 +12,7 @@ const CV = () => {
             <p className="cv-role">Software Developer | Data Science | AI Enthusiast</p>
             <p>Wadduwa, Sri Lanka</p>
             <p>Email: clemon.balasuriya@gmail.com</p>
-            <p>LinkedIn: linkedin.com/in/clemon-balasuriya-05518b256</p>
+            <p>LinkedIn: www.linkedin.com/in/clemon-balasuriya-05518b256</p>
             <p>GitHub: github.com/ClemonBalasuriya</p>
           </div>
         </header>
