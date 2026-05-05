@@ -28,58 +28,75 @@ const Contact = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  // iOS fix: aggressive scroll lock for inputs to prevent auto-scroll on keyboard appear
+  // iOS fix: most aggressive - lock page with position fixed during input focus
   useEffect(() => {
     const form = formRef.current
     if (!form) return
 
-    let savedScrollPos = 0
-
     const handleInputFocus = (e) => {
-      // Save current scroll position
-      savedScrollPos = window.scrollY || window.pageYOffset
+      const scrollPos = window.scrollY || window.pageYOffset
+      const body = document.body
+      const html = document.documentElement
 
-      // Lock scroll position by preventing all scroll events
-      const preventScroll = (e) => {
-        window.scrollTo(0, savedScrollPos)
-      }
+      // Lock body position to prevent iOS keyboard scroll
+      body.style.position = 'fixed'
+      body.style.width = '100%'
+      body.style.top = `-${scrollPos}px`
+      body.style.overflow = 'hidden'
 
-      window.addEventListener('scroll', preventScroll)
-      document.addEventListener('touchmove', preventScroll, { passive: false })
+      // Also lock html
+      html.style.position = 'fixed'
+      html.style.width = '100%'
+      html.style.height = '100%'
+      html.style.top = `-${scrollPos}px`
 
-      // Store the listener so we can remove it on blur
-      e.target._scrollPreventListener = preventScroll
-      e.target._scrollPrevented = true
+      // Store scroll position on input for later
+      e.target._savedScrollPos = scrollPos
     }
 
     const handleInputBlur = (e) => {
-      // Remove scroll lock listeners
-      if (e.target._scrollPrevented) {
-        const preventScroll = e.target._scrollPreventListener
-        if (preventScroll) {
-          window.removeEventListener('scroll', preventScroll)
-          document.removeEventListener('touchmove', preventScroll)
-        }
-        e.target._scrollPrevented = false
-      }
+      const scrollPos = e.target._savedScrollPos || 0
+      const body = document.body
+      const html = document.documentElement
+
+      // Restore body position
+      body.style.position = ''
+      body.style.width = ''
+      body.style.top = ''
+      body.style.overflow = ''
+
+      // Restore html
+      html.style.position = ''
+      html.style.width = ''
+      html.style.height = ''
+      html.style.top = ''
+
+      // Scroll back to saved position
+      window.scrollTo(0, scrollPos)
     }
 
     const inputs = form.querySelectorAll('input, textarea')
     inputs.forEach(input => {
-      input.addEventListener('focus', handleInputFocus, { passive: true })
-      input.addEventListener('blur', handleInputBlur, { passive: true })
+      input.addEventListener('focus', handleInputFocus, { passive: false })
+      input.addEventListener('blur', handleInputBlur, { passive: false })
     })
 
     return () => {
       inputs.forEach(input => {
         input.removeEventListener('focus', handleInputFocus)
         input.removeEventListener('blur', handleInputBlur)
-        // Clean up any remaining listeners
-        if (input._scrollPrevented && input._scrollPreventListener) {
-          window.removeEventListener('scroll', input._scrollPreventListener)
-          document.removeEventListener('touchmove', input._scrollPreventListener)
-        }
       })
+      // Clean up any remaining locks
+      const body = document.body
+      const html = document.documentElement
+      body.style.position = ''
+      body.style.width = ''
+      body.style.top = ''
+      body.style.overflow = ''
+      html.style.position = ''
+      html.style.width = ''
+      html.style.height = ''
+      html.style.top = ''
     }
   }, [])
 
