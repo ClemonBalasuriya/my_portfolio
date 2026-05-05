@@ -28,75 +28,48 @@ const Contact = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  // iOS fix: most aggressive - lock page with position fixed during input focus
+  // iOS fix: prevent touchmove on document, allow only on form
   useEffect(() => {
     const form = formRef.current
     if (!form) return
 
-    const handleInputFocus = (e) => {
-      const scrollPos = window.scrollY || window.pageYOffset
-      const body = document.body
-      const html = document.documentElement
+    let isInputFocused = false
 
-      // Lock body position to prevent iOS keyboard scroll
-      body.style.position = 'fixed'
-      body.style.width = '100%'
-      body.style.top = `-${scrollPos}px`
-      body.style.overflow = 'hidden'
-
-      // Also lock html
-      html.style.position = 'fixed'
-      html.style.width = '100%'
-      html.style.height = '100%'
-      html.style.top = `-${scrollPos}px`
-
-      // Store scroll position on input for later
-      e.target._savedScrollPos = scrollPos
+    const handleInputFocus = () => {
+      isInputFocused = true
     }
 
-    const handleInputBlur = (e) => {
-      const scrollPos = e.target._savedScrollPos || 0
-      const body = document.body
-      const html = document.documentElement
+    const handleInputBlur = () => {
+      isInputFocused = false
+    }
 
-      // Restore body position
-      body.style.position = ''
-      body.style.width = ''
-      body.style.top = ''
-      body.style.overflow = ''
-
-      // Restore html
-      html.style.position = ''
-      html.style.width = ''
-      html.style.height = ''
-      html.style.top = ''
-
-      // Scroll back to saved position
-      window.scrollTo(0, scrollPos)
+    const preventTouchMove = (e) => {
+      // If input is focused, allow touch move only if it's on the form
+      if (isInputFocused) {
+        if (!form.contains(e.target)) {
+          e.preventDefault()
+        }
+      } else {
+        // Block all touchmove
+        e.preventDefault()
+      }
     }
 
     const inputs = form.querySelectorAll('input, textarea')
     inputs.forEach(input => {
-      input.addEventListener('focus', handleInputFocus, { passive: false })
-      input.addEventListener('blur', handleInputBlur, { passive: false })
+      input.addEventListener('focus', handleInputFocus, { passive: true })
+      input.addEventListener('blur', handleInputBlur, { passive: true })
     })
+
+    // Prevent touchmove globally but allow on form
+    document.addEventListener('touchmove', preventTouchMove, { passive: false })
 
     return () => {
       inputs.forEach(input => {
         input.removeEventListener('focus', handleInputFocus)
         input.removeEventListener('blur', handleInputBlur)
       })
-      // Clean up any remaining locks
-      const body = document.body
-      const html = document.documentElement
-      body.style.position = ''
-      body.style.width = ''
-      body.style.top = ''
-      body.style.overflow = ''
-      html.style.position = ''
-      html.style.width = ''
-      html.style.height = ''
-      html.style.top = ''
+      document.removeEventListener('touchmove', preventTouchMove)
     }
   }, [])
 

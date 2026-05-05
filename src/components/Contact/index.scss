@@ -188,16 +188,18 @@
 
   .contact-form-panel {
     padding: 30px;
-    /* iOS fix: ensure form doesn't have overflow that causes scroll issues */
-    overflow: visible;
+    /* iOS fix: make form scrollable internally instead of page scroll */
+    max-height: 85vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
   }
 
   .contact-form {
     display: grid;
     gap: 14px;
-    /* iOS fix: allow normal scrolling */
-    overflow: visible;
-    touch-action: auto;
+    /* iOS fix: allow smooth scrolling within form */
+    touch-action: manipulation;
 
     label {
       display: grid;
