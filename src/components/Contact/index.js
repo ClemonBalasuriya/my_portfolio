@@ -28,24 +28,28 @@ const Contact = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  // iOS fix: prevent auto-scroll on input focus
+  // iOS fix: prevent auto-scroll on input focus by preserving scroll position
   useEffect(() => {
     const form = formRef.current
     if (!form) return
 
     const handleInputFocus = (e) => {
-      // Save current scroll position
-      const scrollPos = window.pageYOffset || document.documentElement.scrollTop
+      // Capture scroll position before iOS tries to auto-scroll
+      const scrollY = window.scrollY || window.pageYOffset
       
-      // Restore scroll position after a brief delay to allow iOS to settle
-      setTimeout(() => {
-        window.scrollTo(0, scrollPos)
-      }, 0)
+      // Prevent default scrollIntoView behavior on iOS
+      e.target.blur()
+      
+      // Restore scroll position and refocus without scrolling
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollY)
+        e.target.focus({ preventScroll: true })
+      })
     }
 
     const inputs = form.querySelectorAll('input, textarea')
     inputs.forEach(input => {
-      input.addEventListener('focus', handleInputFocus)
+      input.addEventListener('focus', handleInputFocus, { passive: true })
     })
 
     return () => {
