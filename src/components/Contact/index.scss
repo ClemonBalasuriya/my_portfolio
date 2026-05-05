@@ -19,15 +19,8 @@
     border-radius: 24px;
     border: 1px solid rgba(123, 92, 72, 0.12);
     box-shadow: 0 20px 42px rgba(75, 53, 41, 0.08);
-    background: linear-gradient(180deg, rgba(255, 250, 244, 0.96), rgba(255, 244, 236, 0.92));
-  }
-
-  .contact-left {
     overflow: hidden;
-  }
-
-  .contact-form-panel {
-    overflow: visible;
+    background: linear-gradient(180deg, rgba(255, 250, 244, 0.96), rgba(255, 244, 236, 0.92));
   }
 
   .contact-left {
@@ -188,18 +181,11 @@
 
   .contact-form-panel {
     padding: 30px;
-    /* iOS fix: make form scrollable internally instead of page scroll */
-    max-height: 85vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
   }
 
   .contact-form {
     display: grid;
     gap: 14px;
-    /* iOS fix: allow smooth scrolling within form */
-    touch-action: manipulation;
 
     label {
       display: grid;
@@ -231,10 +217,6 @@
       padding: 14px 16px;
       transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
       outline: none;
-      /* iOS fixes: prevent auto-zoom and scroll issues */
-      font-size: 16px;
-      touch-action: manipulation;
-      -webkit-appearance: none;
     }
 
     textarea {

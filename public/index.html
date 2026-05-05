@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Clemon Balasuriya | Aspiring Software Engineer</title>
     <meta
       name="description"
@@ -53,6 +53,28 @@
     <script type="text/javascript">
       (function(){
           emailjs.init("{your-token}");
+      })();
+    </script>
+    <script>
+      // Force-remove max-height on profile image at runtime to ensure full visibility
+      (function(){
+        function fixProfileImg(){
+          try{
+            var imgs = document.querySelectorAll('.home-page .profile-preview img');
+            imgs.forEach(function(img){
+              img.style.setProperty('max-height','none','important');
+              img.style.setProperty('height','auto','important');
+              img.style.setProperty('min-height','300px','important');
+            });
+          }catch(e){/* ignore */}
+        }
+        // run immediately
+        fixProfileImg();
+        // also run on DOMContentLoaded and load
+        document.addEventListener('DOMContentLoaded', fixProfileImg);
+        window.addEventListener('load', fixProfileImg);
+        // run a few times over the next second to catch SPA updates
+        var runs = 0; const iv = setInterval(function(){ fixProfileImg(); runs++; if(runs>6) clearInterval(iv); }, 150);
       })();
     </script>
   </body>

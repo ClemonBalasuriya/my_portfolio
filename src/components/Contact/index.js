@@ -28,51 +28,6 @@ const Contact = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  // iOS fix: prevent touchmove on document, allow only on form
-  useEffect(() => {
-    const form = formRef.current
-    if (!form) return
-
-    let isInputFocused = false
-
-    const handleInputFocus = () => {
-      isInputFocused = true
-    }
-
-    const handleInputBlur = () => {
-      isInputFocused = false
-    }
-
-    const preventTouchMove = (e) => {
-      // If input is focused, allow touch move only if it's on the form
-      if (isInputFocused) {
-        if (!form.contains(e.target)) {
-          e.preventDefault()
-        }
-      } else {
-        // Block all touchmove
-        e.preventDefault()
-      }
-    }
-
-    const inputs = form.querySelectorAll('input, textarea')
-    inputs.forEach(input => {
-      input.addEventListener('focus', handleInputFocus, { passive: true })
-      input.addEventListener('blur', handleInputBlur, { passive: true })
-    })
-
-    // Prevent touchmove globally but allow on form
-    document.addEventListener('touchmove', preventTouchMove, { passive: false })
-
-    return () => {
-      inputs.forEach(input => {
-        input.removeEventListener('focus', handleInputFocus)
-        input.removeEventListener('blur', handleInputBlur)
-      })
-      document.removeEventListener('touchmove', preventTouchMove)
-    }
-  }, [])
-
   const whatsappLink = useMemo(
     () => `https://wa.me/${contactLinks.whatsapp.replace(/\D/g, '').replace(/^0/, '94')}`,
     []

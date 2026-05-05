@@ -1,9 +1,6 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-  /* iOS fixes */
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
 }
 
 body {
@@ -19,9 +16,6 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   display: block;
-  /* iOS fixes: prevent elastic scrolling */
-  overscroll-behavior: none;
-  -webkit-overscroll-behavior: none;
 }
 
 #root {
@@ -53,4 +47,12 @@ body {
   body {
     overflow: auto;
   }
+}
+
+/* Force profile image to show full size when needed */
+.home-page .profile-preview img,
+.home-page .profile-preview .profile-photo {
+  max-height: none !important;
+  height: auto !important;
+  min-height: 300px !important;
 }
