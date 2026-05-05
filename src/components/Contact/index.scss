@@ -4,6 +4,8 @@
   box-sizing: border-box;
   padding: 48px 40px;
   color: #3b2a20;
+  -webkit-user-select: text;
+  user-select: text;
 
   .contact-shell {
     position: relative;
@@ -181,6 +183,9 @@
 
   .contact-form-panel {
     padding: 30px;
+    -webkit-user-select: text;
+    user-select: text;
+    -webkit-touch-callout: default;
   }
 
   .contact-form {
@@ -216,17 +221,20 @@
       font-size: 16px;
       font-family: inherit;
       padding: 14px 16px;
-      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
       outline: none;
-      touch-action: manipulation;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
+      -webkit-user-select: text;
+      user-select: text;
+      touch-action: manipulation;
     }
 
     textarea {
       min-height: 170px;
       resize: vertical;
+      font-size: 16px;
     }
 
     input::placeholder,
@@ -239,7 +247,8 @@
       border-color: rgba(217, 119, 6, 0.55);
       box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.12);
       background: #fffefb;
-      -webkit-appearance: none;
+      -webkit-user-select: text;
+      user-select: text;
     }
   }
 
@@ -314,6 +323,13 @@
       .form-row {
         grid-template-columns: 1fr;
       }
+
+      input,
+      textarea {
+        font-size: 16px;
+        padding: 16px 12px;
+        min-height: 44px;
+      }
     }
 
     .social-links {
@@ -328,6 +344,8 @@
     .send-button {
       width: 100%;
       justify-self: stretch;
+      min-height: 44px;
+      font-size: 16px;
     }
   }
 }
