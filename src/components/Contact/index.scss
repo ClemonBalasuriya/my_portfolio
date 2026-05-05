@@ -4,8 +4,6 @@
   box-sizing: border-box;
   padding: 48px 40px;
   color: #3b2a20;
-  -webkit-user-select: text;
-  user-select: text;
 
   .contact-shell {
     position: relative;
@@ -183,9 +181,6 @@
 
   .contact-form-panel {
     padding: 30px;
-    -webkit-user-select: text;
-    user-select: text;
-    -webkit-touch-callout: default;
   }
 
   .contact-form {
@@ -218,23 +213,15 @@
       border: 1px solid rgba(123, 92, 72, 0.18);
       background: rgba(255, 255, 255, 0.96);
       color: #2f2118;
-      font-size: 16px;
-      font-family: inherit;
+      font: inherit;
       padding: 14px 16px;
       transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
       outline: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      -webkit-user-select: text;
-      user-select: text;
-      touch-action: manipulation;
     }
 
     textarea {
       min-height: 170px;
       resize: vertical;
-      font-size: 16px;
     }
 
     input::placeholder,
@@ -247,8 +234,6 @@
       border-color: rgba(217, 119, 6, 0.55);
       box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.12);
       background: #fffefb;
-      -webkit-user-select: text;
-      user-select: text;
     }
   }
 
@@ -323,13 +308,6 @@
       .form-row {
         grid-template-columns: 1fr;
       }
-
-      input,
-      textarea {
-        font-size: 16px;
-        padding: 16px 12px;
-        min-height: 44px;
-      }
     }
 
     .social-links {
@@ -344,6 +322,79 @@
     .send-button {
       width: 100%;
       justify-self: stretch;
+    }
+
+    /* Reduce gap on tablets and reduce min-height of left section */
+    .contact-shell {
+      gap: 16px;
+    }
+
+    .contact-left {
+      min-height: auto;
+    }
+  }
+}
+
+/* iOS and small device specific fixes */
+@media screen and (max-width: 520px) {
+  .contact-page {
+    padding: 12px 8px;
+
+    .contact-shell {
+      gap: 12px;
+    }
+
+    .contact-left,
+    .contact-form-panel {
+      padding: 16px;
+      border-radius: 16px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .contact-form {
+      gap: 10px;
+
+      label {
+        gap: 6px;
+        font-size: 12px;
+      }
+
+      .form-row {
+        gap: 10px;
+      }
+
+      input,
+      textarea {
+        /* iOS-specific: prevent auto-zoom on focus */
+        font-size: 16px !important;
+        /* Ensure custom styling is applied on iOS */
+        -webkit-appearance: none;
+        appearance: none;
+        /* Prevent iOS from adding default styling */
+        border-radius: 12px;
+        padding: 12px 14px;
+        /* Ensure inputs are properly tappable */
+        min-height: 44px;
+        min-width: 44px;
+      }
+
+      textarea {
+        min-height: 120px;
+      }
+
+      input:focus,
+      textarea:focus {
+        /* Ensure focus state is visible on iOS */
+        outline: 2px solid #c85f35;
+        outline-offset: 0;
+      }
+    }
+
+    .send-button {
       min-height: 44px;
       font-size: 16px;
     }
