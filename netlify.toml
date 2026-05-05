@@ -1,0 +1,15 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+
+# Production environment variables can be set in the Netlify UI instead of
+# committing secrets here. Example variable names used by the app:
+# REACT_APP_EMAILJS_SERVICE_ID
+# REACT_APP_EMAILJS_TEMPLATE_ID
+# REACT_APP_EMAILJS_PUBLIC_KEY
+
+[context.production.environment]
+# Uncomment and set in Netlify UI or leave empty here (not recommended to commit secrets)
+# REACT_APP_EMAILJS_SERVICE_ID = ""
+# REACT_APP_EMAILJS_TEMPLATE_ID = ""
+# REACT_APP_EMAILJS_PUBLIC_KEY = ""

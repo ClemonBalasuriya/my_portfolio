@@ -70,3 +70,31 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Deploying to Netlify
+
+This project is compatible with Netlify as a static SPA. A `_redirects` file has been added to `public/` and a `netlify.toml` has been added to the project root to make deployment straightforward.
+
+Quick steps:
+
+- Build locally to verify:
+
+```bash
+npm install
+npm run build
+```
+
+- Create a new site on Netlify and connect your Git repository, or use the drag-and-drop deploy by uploading the `build/` folder.
+
+- If using the Netlify UI, set the build command to `npm run build` and the publish directory to `build` (these are already set in `netlify.toml`).
+
+- Add required environment variables in the Netlify site settings (Site settings → Build & deploy → Environment):
+	- `REACT_APP_EMAILJS_SERVICE_ID`
+	- `REACT_APP_EMAILJS_TEMPLATE_ID`
+	- `REACT_APP_EMAILJS_PUBLIC_KEY`
+
+Notes:
+- The `_redirects` file ensures all client-side routes serve `index.html` so the SPA router works.
+- Do not commit secret keys to the repo; configure them in Netlify's UI.
+- If you prefer the CLI, you can use `netlify deploy --prod --dir=build` after running the build command.
+
