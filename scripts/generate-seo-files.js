@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 const siteUrl = (
+  'https://clemonbalasuriya.netlify.app' ||
   process.env.SITE_URL ||
   process.env.REACT_APP_SITE_URL ||
   process.env.URL ||
