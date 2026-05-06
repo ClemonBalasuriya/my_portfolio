@@ -10,7 +10,11 @@
       name="description"
       content="Portfolio of Clemon Balasuriya, an aspiring software engineer and data science enthusiast building data-driven and scalable systems."
     />
-    <meta name="robots" content="noodp" />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#0f172a" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta
@@ -34,6 +38,36 @@
       name="twitter:title"
       content="Clemon Balasuriya | Aspiring Software Engineer"
     />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Clemon Balasuriya",
+        "jobTitle": "Aspiring Software Engineer",
+        "description": "Portfolio of Clemon Balasuriya, an aspiring software engineer and data science enthusiast building data-driven and scalable systems.",
+        "sameAs": [
+          "https://www.linkedin.com/in/clemon-balasuriya-05518b256",
+          "https://github.com/ClemonBalasuriya",
+          "https://www.instagram.com/clemon_balasuriya?igsh=MXRucTU5NGV2cG9tMQ==",
+          "https://www.facebook.com/share/15ovJiibygD/"
+        ]
+      }
+    </script>
+    <script>
+      (function () {
+        try {
+          var canonical = document.querySelector('link[rel="canonical"]');
+          if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonical);
+          }
+          canonical.setAttribute('href', window.location.origin + window.location.pathname.replace(/\/?$/, '/'));
+        } catch (error) {
+          // Ignore canonical setup errors.
+        }
+      })();
+    </script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
